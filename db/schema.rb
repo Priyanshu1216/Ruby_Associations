@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_04_091702) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_04_094516) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.string "description"
@@ -34,12 +34,30 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_04_091702) do
     t.index ["office_id"], name: "index_domains_on_office_id"
   end
 
+  create_table "employees", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "offices", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "salaries", force: :cascade do |t|
+    t.integer "amount"
+    t.integer "office_id", null: false
+    t.integer "employee_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_salaries_on_employee_id"
+    t.index ["office_id"], name: "index_salaries_on_office_id"
+  end
+
   add_foreign_key "comments", "articles"
   add_foreign_key "domains", "offices"
+  add_foreign_key "salaries", "employees"
+  add_foreign_key "salaries", "offices"
 end
