@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_04_101946) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_04_104959) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.string "description"
@@ -51,6 +51,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_04_101946) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "events", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "offices", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -58,6 +64,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_04_101946) do
   end
 
   create_table "people", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "poly_comments", force: :cascade do |t|
+    t.text "title"
+    t.string "commentable_type", null: false
+    t.integer "commentable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commentable_type", "commentable_id"], name: "index_poly_comments_on_commentable"
+  end
+
+  create_table "posts", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
